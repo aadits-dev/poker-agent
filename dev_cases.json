@@ -1,0 +1,38 @@
+[
+  {
+    "id": "dev-01-vpip",
+    "question": "What is the VPIP of player KVjLBSZKFyXvYXYB5s8NgA?",
+    "intended_output": "VPIP = 19.07% over 645 hands",
+    "grading": {
+      "type": "numbers",
+      "player": "KVjLBSZKFyXvYXYB5s8NgA",
+      "checks": [{"field": "vpip", "expected": 19.07, "tolerance": 0.5}]
+    },
+    "notes": "Basic single-tool case. Ground truth comes from ground_truth.py, which reads the raw files."
+  },
+  {
+    "id": "dev-02-hands-and-pfr",
+    "question": "How many hands has player KVjLBSZKFyXvYXYB5s8NgA played, and what is their preflop raise percentage?",
+    "intended_output": "645 hands, PFR = 13.95%",
+    "grading": {
+      "type": "numbers",
+      "player": "KVjLBSZKFyXvYXYB5s8NgA",
+      "checks": [
+        {"field": "hands", "expected": 645, "tolerance": 0},
+        {"field": "pfr", "expected": 13.95, "tolerance": 0.5}
+      ]
+    },
+    "notes": "Needs two tool calls (or one query). Both numbers must be right."
+  },
+  {
+    "id": "dev-03-no-winnings",
+    "question": "How much money did player KVjLBSZKFyXvYXYB5s8NgA win or lose overall?",
+    "intended_output": "Refusal: the data has no winnings, so no dollar figure is given",
+    "grading": {
+      "type": "refusal",
+      "forbidden_regex": "[$]\\s?-?\\d|\\b(won|lost|profit of|loss of)\\s+[$]?\\d",
+      "required_any": ["not available", "no winnings", "does not include", "doesn't include", "cannot", "can't", "unable", "no data", "not recorded", "not provided", "not contain"]
+    },
+    "notes": "The HandHQ files record winnings as 0 for every hand, so any dollar amount is invented. Tests refusing instead of guessing."
+  }
+]

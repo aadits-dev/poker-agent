@@ -1,0 +1,6 @@
+hands.db
+results/
+__pycache__/
+data/phh-dataset/
+.env
+.venv/
